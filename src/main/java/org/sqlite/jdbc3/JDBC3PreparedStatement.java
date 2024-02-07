@@ -41,11 +41,6 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
 
     /** @see java.sql.PreparedStatement#execute() */
     public boolean execute() throws SQLException {
-        if (hasReturningClause) {
-            updateGeneratedKeys(executeQuery());
-            return true;
-        }
-
         checkOpen();
         rs.close();
         pointer.safeRunConsume(DB::reset);
