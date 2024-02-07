@@ -226,7 +226,7 @@ public abstract class JDBC3Connection extends SQLiteConnection {
 
     /** @see java.sql.Connection#prepareStatement(java.lang.String, int[]) */
     public PreparedStatement prepareStatement(String sql, int[] colInds) throws SQLException {
-        return prepareStatement(sql);
+        throw new SQLFeatureNotSupportedException("not implemented by SQLite JDBC driver");
     }
 
     /** @see java.sql.Connection#prepareStatement(java.lang.String, java.lang.String[]) */
@@ -248,7 +248,7 @@ public abstract class JDBC3Connection extends SQLiteConnection {
 
     /** @see java.sql.Connection#prepareStatement(java.lang.String, int, int) */
     public PreparedStatement prepareStatement(String sql, int rst, int rsc) throws SQLException {
-        return prepareStatement(sql, null, rst, rsc, ResultSet.CLOSE_CURSORS_AT_COMMIT);
+        return prepareStatement(sql, "", rst, rsc, ResultSet.CLOSE_CURSORS_AT_COMMIT);
     }
 
     /** @see java.sql.Connection#prepareStatement(java.lang.String, int, int, int) */
