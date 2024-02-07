@@ -17,7 +17,6 @@ package org.sqlite.core;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import org.sqlite.SQLiteConnection;
 import org.sqlite.SQLiteConnectionConfig;
 import org.sqlite.jdbc3.JDBC3Connection;
@@ -35,7 +34,6 @@ public abstract class CoreStatement implements Codes {
     protected Object[] batch = null;
     protected boolean resultsWaiting = false;
 
-    private Statement generatedKeysStat = null;
     private ResultSet generatedKeysRs = null;
 
     protected CoreStatement(SQLiteConnection c) {
@@ -155,14 +153,6 @@ public abstract class CoreStatement implements Codes {
         }
     }
 
-    protected void clearGeneratedKeys() throws SQLException {
-        clearGeneratedRs();
-        if (generatedKeysStat != null && !generatedKeysStat.isClosed()) {
-            generatedKeysStat.close();
-        }
-        generatedKeysStat = null;
-    }
-
     protected void clearGeneratedRs() throws SQLException {
         if (generatedKeysRs != null && !generatedKeysRs.isClosed()) {
             generatedKeysRs.close();
@@ -177,13 +167,6 @@ public abstract class CoreStatement implements Codes {
      * updateGeneratedKeys on the statement object right after execute in a synchronized(connection)
      * block.
      */
-    public void updateGeneratedKeys() throws SQLException {
-        clearGeneratedKeys();
-        if (sql != null && QueryUtils.isInsertQuery(sql)) {
-            generatedKeysStat = conn.createStatement();
-            generatedKeysRs = generatedKeysStat.executeQuery("SELECT last_insert_rowid();");
-        }
-    }
     public void updateGeneratedKeys(ResultSet result) throws SQLException {
         clearGeneratedRs();
         if (sql != null && QueryUtils.isInsertQuery(sql)) {
@@ -192,9 +175,8 @@ public abstract class CoreStatement implements Codes {
     }
 
     /**
-     * This implementation uses SQLite's last_insert_rowid function to obtain the row ID. It cannot
-     * provide multiple values when inserting multiple rows. Suggestion is to use a <a
-     * href=https://www.sqlite.org/lang_returning.html>RETURNING</a> clause instead.
+     * This implementation add a SQLite's RETURNING clause to SQL command starting with
+     * INSERT or UPDATE this will allow to retrieve multiple row ID when inserting multiple rows.
      *
      * @see java.sql.Statement#getGeneratedKeys()
      */
@@ -203,8 +185,7 @@ public abstract class CoreStatement implements Codes {
         // did not generate any keys. Thus, if the generateKeysResultSet is NULL, spin
         // up a new result set without any contents by issuing a query with a false where condition
         if (generatedKeysRs == null) {
-            generatedKeysStat = conn.createStatement();
-            generatedKeysRs = generatedKeysStat.executeQuery("SELECT 1 WHERE 1 = 2;");
+            generatedKeysRs = conn.createStatement().executeQuery("SELECT 1 WHERE 1 = 2;");
         }
         return generatedKeysRs;
     }

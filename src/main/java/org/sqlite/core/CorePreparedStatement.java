@@ -43,7 +43,7 @@ public abstract class CorePreparedStatement extends JDBC4Statement {
     protected CorePreparedStatement(SQLiteConnection conn, String sql1, String keys) throws SQLException {
         super(conn);
         String sql2 = new String(sql1);
-        if (!keys.isEmpty() && QueryUtils.isInsertQuery(sql1)) {
+        if (!keys.trim().isEmpty() && QueryUtils.isInsertQuery(sql1)) {
             sql2 = QueryUtils.addReturningClause(sql1, keys);
         }
         sql = sql2;

@@ -62,7 +62,6 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
                         synchronized (conn) {
                             resultsWaiting =
                                     conn.getDatabase().execute(JDBC3PreparedStatement.this, batch);
-                            updateGeneratedKeys();
                             success = true;
                             updateCount = getDatabase().changes();
                         }
@@ -137,7 +136,6 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
                         long rc =
                                 conn.getDatabase()
                                         .executeUpdate(JDBC3PreparedStatement.this, batch);
-                        updateGeneratedKeys();
                         return rc;
                     }
                 });

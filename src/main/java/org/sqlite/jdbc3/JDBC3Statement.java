@@ -33,7 +33,7 @@ public abstract class JDBC3Statement extends CoreStatement {
 
     /** @see java.sql.Statement#close() */
     public void close() throws SQLException {
-        clearGeneratedKeys();
+        clearGeneratedRs();
         internalClose();
     }
 
@@ -54,7 +54,6 @@ public abstract class JDBC3Statement extends CoreStatement {
                     synchronized (conn) {
                         conn.getDatabase().prepare(JDBC3Statement.this);
                         boolean result = exec();
-                        updateGeneratedKeys();
                         updateCount = getDatabase().changes();
                         exhaustedResults = false;
                         return result;
@@ -146,7 +145,6 @@ public abstract class JDBC3Statement extends CoreStatement {
                                 int statusCode = db._exec(sql);
                                 if (statusCode != SQLITE_OK)
                                     throw DB.newSQLException(statusCode, "");
-                                updateGeneratedKeys();
                                 changes = db.total_changes() - changes;
                             }
 

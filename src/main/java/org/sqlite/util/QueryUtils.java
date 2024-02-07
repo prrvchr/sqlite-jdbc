@@ -1,7 +1,6 @@
 package org.sqlite.util;
 
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class QueryUtils {
@@ -41,14 +40,13 @@ public class QueryUtils {
     }
 
     // pattern for matching insert statements of the general format starting with INSERT or REPLACE.
-    // CTEs used prior to the insert or replace keyword are also be permitted.
-    private final static Pattern insertPattern =
-                                   Pattern.compile(
-                                       "^(with\\s+.+\\(.+?\\))*\\s*(insert|replace)",
-                                       Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
-
+    // CTEs used prior to the insert or replace keyword are not be permitted.
     public static boolean isInsertQuery(String sql) {
-        return insertPattern.matcher(sql.trim().toLowerCase()).find();
+        if (sql != null && (sql.trim().toUpperCase().startsWith("INSERT ") ||
+                            sql.trim().toUpperCase().startsWith("REPLACE "))) {
+            return true;
+        }
+        return false;
     }
 
     public static String addReturningClause(String sql, String keys) {
@@ -59,7 +57,10 @@ public class QueryUtils {
         if (count == 1 && !sql.split(separator)[1].trim().isEmpty()) {
             count = 2;
         }
-        if (sql.toUpperCase().indexOf(clause) == -1 && count < 2) {
+        if (sql.toUpperCase().indexOf(clause) != -1 || count > 1) {
+            buffer.append(sql);
+        }
+        else {
             int index = count == 1 ? sql.indexOf(separator) : sql.length();
             buffer.append(sql.substring(0, index));
             buffer.append(" ");
@@ -67,9 +68,6 @@ public class QueryUtils {
             buffer.append(" ");
             buffer.append(keys);
             buffer.append(sql.substring(index));
-        }
-        else {
-            buffer.append(sql);
         }
         return buffer.toString();
     }
