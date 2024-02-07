@@ -1,4 +1,4 @@
-I have just updated https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.3-SNAPSHOT/[sqlite-jdbc-3.45.1.3-SNAPSHOT.jar] to comply with JDBC 4.1, namely:
+I have just updated https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.3-SNAPSHOT/sqlite-jdbc-3.45.1.3-SNAPSHOT.jar[sqlite-jdbc-3.45.1.3-SNAPSHOT.jar] to comply with JDBC 4.1, namely:
 
 - The `java.sql.DatabaseMetaData.supportsGetGeneratedKeys()` method answers `true`.
 - The `java.sql.DatabaseMetaData.generatedKeyAlwaysReturned()` method answers `true`.
@@ -20,6 +20,7 @@ I have just updated https://github.com/prrvchr/sqlite-jdbc/releases/download/3.4
 I would like to point out to you that the new operating mode of this driver is not at all the same as that used in the gotson driver. It **probably requires rewriting your programs but it follows JDBC 4.1 specifications**.
 
 And finally I hope that @gotson will change his mind about integrating this PR because I don't really want to maintain sqlite-jdbc...
+
 
 
 = SQLite JDBC Driver
