@@ -47,7 +47,7 @@ public abstract class CorePreparedStatement extends JDBC4Statement {
             sql2 = QueryUtils.addReturningClause(sql1, keys);
         }
         sql = sql2;
-        hasReturningClause = !sql2.equals(sql1);
+        hasReturningClause = sql2.length() != sql1.length();
         DB db = conn.getDatabase();
         db.prepare(this);
         rs.colsMeta = pointer.safeRun(DB::column_names);
@@ -113,7 +113,7 @@ public abstract class CorePreparedStatement extends JDBC4Statement {
 
     /** Store the date in the user's preferred format (text, int, or real) */
     @SuppressWarnings("deprecation")
-	protected void setDateByMilliseconds(int pos, Long value, Calendar calendar)
+    protected void setDateByMilliseconds(int pos, Long value, Calendar calendar)
             throws SQLException {
         SQLiteConnectionConfig config = conn.getConnectionConfig();
         switch (config.getDateClass()) {

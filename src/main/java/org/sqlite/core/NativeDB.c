@@ -1889,7 +1889,7 @@ JNIEXPORT jbyteArray JNICALL Java_org_sqlite_core_NativeDB_serialize(JNIEnv *env
       {
          (*env)->ReleaseStringUTFChars(env, jschema, schema);
          throwex_msg(env, "Serialization failed, allocation failed");
-	 return NULL;
+         return NULL;
       }
       need_free = 1;
    }
@@ -1908,7 +1908,7 @@ JNIEXPORT jbyteArray JNICALL Java_org_sqlite_core_NativeDB_serialize(JNIEnv *env
       {
          throwex_msg(env, "Failed to get byte[] address");
          (*env)->DeleteLocalRef(env, jbuff);
-	 jbuff = NULL;
+         jbuff = NULL;
       }
    }
    else
@@ -1959,8 +1959,8 @@ JNIEXPORT void JNICALL Java_org_sqlite_core_NativeDB_deserialize(JNIEnv *env, jo
    }
    else
    {
-   	sqlite3_int64 max_size = 1024L * 1024L * 1000L * 2L; //~2gb, bigger values will result in sqlite malloc error
-   	sqlite3_file_control(db, schema, SQLITE_FCNTL_SIZE_LIMIT, &max_size);
+      sqlite3_int64 max_size = 1024L * 1024L * 1000L * 2L; //~2gb, bigger values will result in sqlite malloc error
+      sqlite3_file_control(db, schema, SQLITE_FCNTL_SIZE_LIMIT, &max_size);
    }
    (*env)->ReleaseStringUTFChars(env, jschema, schema);
 }

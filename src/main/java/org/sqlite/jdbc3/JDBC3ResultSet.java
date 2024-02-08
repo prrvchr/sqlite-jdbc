@@ -506,7 +506,7 @@ public abstract class JDBC3ResultSet extends CoreResultSet {
 
     /** @see java.sql.ResultSet#getObject(int) */
     @SuppressWarnings("deprecation")
-	public Object getObject(int col) throws SQLException {
+    public Object getObject(int col) throws SQLException {
         switch (safeGetColumnType(markCol(col))) {
             case SQLITE_INTEGER:
                 long val = getLong(col);
