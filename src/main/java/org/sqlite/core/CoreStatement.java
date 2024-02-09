@@ -176,7 +176,7 @@ public abstract class CoreStatement implements Codes {
 
     /**
      * This implementation add a SQLite's RETURNING clause to SQL command starting with
-     * INSERT or UPDATE this will allow to retrieve multiple row ID when inserting multiple rows.
+     * INSERT or REPLACE this will allow to retrieve multiple rows ID when inserting multiple rows.
      *
      * @see java.sql.Statement#getGeneratedKeys()
      */
