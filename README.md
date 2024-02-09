@@ -31,7 +31,9 @@
 
 ## Introduction:
 
-**SQLite-JDBC** was born from a fork of xerial [sqlite-jdbc][5] following a refusal to merge a [pull request][6] to make the SQLite driver compatible with JDBC 4.1.
+The **SQLite-JDBC** driver is part of a [Series][5] of applications allowing us to offer you innovative services in free software.
+
+It was born from a fork of xerial [sqlite-jdbc][6] following a refusal to merge a [pull request][7] to make the SQLite driver compatible with JDBC 4.1.
 
 This driver allows you to use software compatible with JDBC 4.1 and SQLite database.
 
@@ -73,9 +75,9 @@ This new driver will bring you many advantages:
 - Your program using SQLite will be compatible with JDBC and therefore guarantees interoperability at the level of JDBC databases.
 
 Being free software I encourage you:
-- To duplicate its [source code][7].
+- To duplicate its [source code][8].
 - To make changes, corrections, improvements.
-- To open [issue][8] if needed.
+- To open [issue][9] if needed.
 
 In short, to participate in the development of this extension.  
 Because it is together that we can make Free Software smarter.
@@ -86,15 +88,16 @@ ___
 
 Download the jar archive and do what you like.
 
-- ![SQLite-JDBC logo][1] jar file **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][9]** [![Version][10]][9]
+- ![SQLite-JDBC logo][1] jar file **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][10]** [![Version][11]][10]
 
 [1]: <https://prrvchr.github.io/SQLiteOOo/img/sqlite.svg#collapse>
 [2]: <https://prrvchr.github.io/sqlite-jdbc/>
 [3]: <https://prrvchr.github.io/sqlite-jdbc/README_fr>
 [4]: <https://github.com/prrvchr/sqlite-jdbc/releases>
-[5]: <https://github.com/xerial/sqlite-jdbc>
-[6]: <https://github.com/xerial/sqlite-jdbc/pull/1067>
-[7]: <https://github.com/prrvchr/sqlite-jdbc/>
-[8]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
-[9]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
-[10]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
+[5]: <https://prrvchr.github.io/>
+[6]: <https://github.com/xerial/sqlite-jdbc>
+[7]: <https://github.com/xerial/sqlite-jdbc/pull/1067>
+[8]: <https://github.com/prrvchr/sqlite-jdbc/>
+[9]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
+[10]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
+[11]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
