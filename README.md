@@ -66,8 +66,11 @@ On the other hand, to make them functional it was necessary to modify certain ac
 - `java.sql.PreparedStatement.execute()` method is a no ops, it clear any cached result set and calls `execute()`. You need to use `executeUpdate()` then `getGeneratedKeys()` methods.
 - `java.sql.PreparedStatement.executeQuery()` method is a no ops, it clear any cached result set and calls `executeQuery()`. You need to use `executeUpdate()` then `getGeneratedKeys()` methods.
 
-I would like to point out that this new mode of operation of the driver is not quite the same as that used in the xerial driver. This may require changing some SQL queries in your programs. **But it assures you that its use complies with JDBC 4.1 standards**.  
-It guarantees interoperability at the JDBC database level.
+I would like to point out that this new mode of operation of the driver is not quite the same as that used in the xerial driver. This may require changing some SQL queries in your programs. **But it assures you that its use complies with JDBC 4.1 standards**.
+
+This new driver will bring you many advantages:
+- If you use multi-row SQL `INSERT` commands, this allows massive and fast inserts into the database in just two JDBC commands (producing a single SQL query) `executeUpdate()` then `getGeneratedKeys()`. These are the two methods recommended by JDBC to execute the SQL commands `INSERT`, `UPDATE`, `DELETE`...
+- Your program using SQLite will be compatible with JDBC and therefore guarantees interoperability at the level of JDBC databases.
 
 Being free software I encourage you:
 - To duplicate its [source code][7].
