@@ -71,7 +71,7 @@ En revanche, pour les rendre fonctionnels il a fallu modifier certaines méthode
 Je tiens à souligner que ce nouveau mode de fonctionnement du pilote n'est pas tout à fait le même que celui utilisé dans le pilote xerial. Cela peut nécessiter la modification de certaines requêtes SQL dans vos programmes. **Mais il vous assure que son utilisation respecte les standards JDBC 4.1**.
 
 Ce nouveau pilote va vous apporter de nombreux avantages:
-- Si vous utilisez des commandes SQL `INSERT` multi-lignes, cela permet des insertions massives et rapides dans la base de données en seulement deux commandes JDBC (produisant une seule requête SQL) `executeUpdate()` puis `getGeneratedKeys()`. Ce sont les deux méthodes recommandées par JDBC pour exécuter les commandes SQL `INSERT`, `UPDATE`, `DELETE`...
+- Si vous utilisez des commandes SQL `INSERT` multi-lignes, cela permet des insertions massives et rapides dans la base de données avec seulement deux méthodes JDBC (produisant une seule requête SQL) `executeUpdate()` puis `getGeneratedKeys()`. Et ce sont les deux méthodes recommandées par JDBC pour exécuter les commandes SQL `INSERT`, `UPDATE`, `DELETE`...
 - Votre programme utilisant SQLite sera compatible avec JDBC et donc vous garantit l'interopérabilité au niveau des bases de données JDBC.
 
 Etant un logiciel libre je vous encourage:

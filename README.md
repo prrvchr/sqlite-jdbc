@@ -71,7 +71,7 @@ On the other hand, to make them functional it was necessary to modify certain ac
 I would like to point out that this new mode of operation of the driver is not quite the same as that used in the xerial driver. This may require changing some SQL queries in your programs. **But it assures you that its use complies with JDBC 4.1 standards**.
 
 This new driver will bring you many advantages:
-- If you use multi-row SQL `INSERT` commands, this allows massive and fast inserts into the database in just two JDBC commands (producing a single SQL query) `executeUpdate()` then `getGeneratedKeys()`. These are the two methods recommended by JDBC to execute the SQL commands `INSERT`, `UPDATE`, `DELETE`...
+- If you use multi-row SQL `INSERT` commands, this allows massive and fast inserts into the database in just two JDBC methods (producing a single SQL query) `executeUpdate()` then `getGeneratedKeys()`. And these are the two methods recommended by JDBC to execute the SQL commands `INSERT`, `UPDATE`, `DELETE`...
 - Your program using SQLite will be compatible with JDBC and therefore guarantees interoperability at the level of JDBC databases.
 
 Being free software I encourage you:
