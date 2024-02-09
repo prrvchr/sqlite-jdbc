@@ -66,7 +66,7 @@ On the other hand, to make them functional it was necessary to modify certain ac
 - `java.sql.PreparedStatement.execute()` method is a no ops, it clear any generated keys and calls `execute()`. You need to use `executeUpdate()` then `getGeneratedKeys()` methods.
 - `java.sql.PreparedStatement.executeQuery()` method is a no ops, it clear any generated keys and calls `executeQuery()`. You need to use `executeUpdate()` then `getGeneratedKeys()` methods.
 
-I would like to point out that this new mode of operation of the driver is not quite the same as that used in the gotson driver. This may require changing some SQL queries in your programs. **But it assures you that its use complies with JDBC 4.1 standards**.
+I would like to point out that this new mode of operation of the driver is not quite the same as that used in the xerial driver. This may require changing some SQL queries in your programs. **But it assures you that its use complies with JDBC 4.1 standards**.
 
 Being free software I encourage you:
 - To duplicate its [source code][7].
@@ -93,4 +93,4 @@ Download the jar archive and do what you like.
 [7]: <https://github.com/prrvchr/sqlite-jdbc/>
 [8]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
 [9]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
-[10]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/total?label=v3.45.1.6-SNAPSHOT#right>
+[10]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>

@@ -93,4 +93,4 @@ Télécharger l'archive jar et faite en ce qu'il vous plait.
 [7]: <https://github.com/prrvchr/sqlite-jdbc/>
 [8]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
 [9]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
-[10]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/total?label=v3.45.1.6-SNAPSHOT#right>
+[10]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
