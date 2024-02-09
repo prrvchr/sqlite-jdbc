@@ -41,6 +41,10 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
 
     /** @see java.sql.PreparedStatement#execute() */
     public boolean execute() throws SQLException {
+        // We can't generate the keys in the method execute(). We need to clear the GeneratedRs.
+        if (hasReturningClause) {
+            clearGeneratedRs();
+        }
         checkOpen();
         rs.close();
         pointer.safeRunConsume(DB::reset);
@@ -69,6 +73,10 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
 
     /** @see java.sql.PreparedStatement#executeQuery() */
     public ResultSet executeQuery() throws SQLException {
+        // We can't generate the keys in the method executeQuery(). We need to clear the GeneratedRs.
+        if (hasReturningClause) {
+            clearGeneratedRs();
+        }
         checkOpen();
 
         if (columnCount == 0) {
