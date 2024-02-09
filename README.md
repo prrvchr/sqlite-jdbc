@@ -31,7 +31,7 @@
 
 ## Introduction:
 
-**SQLite-JDBC** was born from a fork of [sqlite-jdbc][5] following a refusal to merge a pull request to make the SQLite driver compatible with JDBC 4.1.
+**SQLite-JDBC** was born from a fork of xerial [sqlite-jdbc][5] following a refusal to merge a [pull request][6] to make the SQLite driver compatible with JDBC 4.1.
 
 This driver allows you to use software compatible with JDBC 4.1 and SQLite database.
 
@@ -66,12 +66,12 @@ On the other hand, to make them functional it was necessary to modify certain ac
 - `java.sql.PreparedStatement.execute()` method is a no ops, it clear any generated keys and calls `execute()`. You need to use `executeUpdate()` then `getGeneratedKeys()` methods.
 - `java.sql.PreparedStatement.executeQuery()` method is a no ops, it clear any generated keys and calls `executeQuery()`. You need to use `executeUpdate()` then `getGeneratedKeys()` methods.
 
-I would like to point out that this new mode of operation of the driver is not quite the same as that used in the gotson driver. This may require changing some SQL queries in your programs. But it assures you that its use complies with JDBC standards.
+I would like to point out that this new mode of operation of the driver is not quite the same as that used in the gotson driver. This may require changing some SQL queries in your programs. **But it assures you that its use complies with JDBC 4.1 standards**.
 
 Being free software I encourage you:
-- To duplicate its [source code][6].
+- To duplicate its [source code][7].
 - To make changes, corrections, improvements.
-- To open [issue][7] if needed.
+- To open [issue][8] if needed.
 
 In short, to participate in the development of this extension.  
 Because it is together that we can make Free Software smarter.
@@ -82,14 +82,15 @@ ___
 
 Download the jar archive and do what you like.
 
-- ![SQLite-JDBC logo][1] jar file **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][8]** [![Version][9]][8]
+- ![SQLite-JDBC logo][1] jar file **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][9]** [![Version][10]][9]
 
 [1]: <https://prrvchr.github.io/SQLiteOOo/img/sqlite.svg#collapse>
 [2]: <https://prrvchr.github.io/sqlite-jdbc/>
 [3]: <https://prrvchr.github.io/sqlite-jdbc/README_fr>
 [4]: <https://github.com/prrvchr/sqlite-jdbc/releases>
 [5]: <https://github.com/xerial/sqlite-jdbc>
-[6]: <https://github.com/prrvchr/sqlite-jdbc/>
-[7]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
-[8]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
-[9]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/total?label=v3.45.1.6-SNAPSHOT#right>
+[6]: <https://github.com/xerial/sqlite-jdbc/pull/1067>
+[7]: <https://github.com/prrvchr/sqlite-jdbc/>
+[8]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
+[9]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
+[10]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/total?label=v3.45.1.6-SNAPSHOT#right>

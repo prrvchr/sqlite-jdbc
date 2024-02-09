@@ -7,7 +7,7 @@ plugins:
 favicon: true
 logo: /img/sqlite.svg
 email: prrvchr@gmail.com
-title: SQLiteJDBC
+title: SQLite JDBC
 blank_title: true
 description: The SQLite full JDBC 4.1 driver.
 sidebar:
