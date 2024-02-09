@@ -88,7 +88,7 @@ ___
 
 Télécharger l'archive jar et faite en ce qu'il vous plait.
 
-- ![SQLite-JDBC logo][1] Fichier jar **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][10]** [![Version][11]][10]
+- ![SQLite-JDBC logo][10] Fichier jar **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][11]** [![Version][12]][11]
 
 [1]: <https://prrvchr.github.io/SQLiteOOo/img/sqlite.svg#collapse>
 [2]: <https://prrvchr.github.io/sqlite-jdbc/>
@@ -99,5 +99,6 @@ Télécharger l'archive jar et faite en ce qu'il vous plait.
 [7]: <https://github.com/xerial/sqlite-jdbc/pull/1067>
 [8]: <https://github.com/prrvchr/sqlite-jdbc/>
 [9]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
-[10]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
-[11]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
+[10]: <https://prrvchr.github.io/sqlite-jdbc/img/SQLiteJDBC.svg#middle>
+[11]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
+[12]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
