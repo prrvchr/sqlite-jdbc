@@ -57,6 +57,8 @@ Son fonctionnement ne diffère pas vraiment du pilote d'origine et voici les mod
 - Les commandes SQL commençant par `INSERT` ou `REPLACE` seront complétées par la clause `RETURNING` à laquelle sont ajoutées les options nécessaires pour obtenir le jeu de résultats mis en cache.
 - Le jeu de résultats mis en cache, lors de l'exécution de l'une des méthodes `executeUpdate()`, est renvoyé lors de l'appel de la méthode `java.sql.Statement.getGeneratedKeys()`.
 
+Devoir compléter les commandes SQL `INSERT` et `REPLACE` afin de pouvoir suivre l'API JDBC 4.1 peut paraître au premier abord incongru. Mais en fait **c'est la solution implémentée dans le pilote [IBM DB2 v11.5] [10]** (ie: il suffixe les commandes SQL `INSERT` avec `SELECT FROM`). Et je pense qu'il en va de même pour tous les pilotes JDBC 4.1 dont la base de données n'est pas écrite en Java.
+
 Ces modifications concernent uniquement le fonctionnement interne du pilote et ne sont pas visibles. En revanche, pour les rendre fonctionnels il a fallu modifier certaines méthodes d'accès au driver JDBC SQLite.  
 Vous trouverez la description de cette nouvelle API dans la section suivante.
 
@@ -100,7 +102,7 @@ ___
 
 Télécharger l'archive jar et faite en ce qu'il vous plait.
 
-- ![SQLite-JDBC logo][10] Fichier jar **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][11]** [![Version][12]][11]
+- ![SQLite-JDBC logo][11] Fichier jar **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][12]** [![Version][13]][12]
 
 [1]: <https://prrvchr.github.io/SQLiteOOo/img/sqlite.svg#collapse>
 [2]: <https://prrvchr.github.io/sqlite-jdbc/>
@@ -111,6 +113,7 @@ Télécharger l'archive jar et faite en ce qu'il vous plait.
 [7]: <https://github.com/xerial/sqlite-jdbc/pull/1067>
 [8]: <https://github.com/prrvchr/sqlite-jdbc/>
 [9]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
-[10]: <https://prrvchr.github.io/sqlite-jdbc/img/SQLiteJDBC.svg#middle>
-[11]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
-[12]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
+[10]: <https://www.ibm.com/docs/en/db2/11.5?topic=applications-retrieving-auto-generated-keys-insert-statement>
+[11]: <https://prrvchr.github.io/sqlite-jdbc/img/SQLiteJDBC.svg#middle>
+[12]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
+[13]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
