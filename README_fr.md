@@ -57,7 +57,7 @@ Son fonctionnement ne diffère pas vraiment du pilote d'origine et voici les mod
 - Les commandes SQL commençant par `INSERT` ou `REPLACE` seront complétées par la clause `RETURNING` à laquelle sont ajoutées les options nécessaires pour obtenir le jeu de résultats mis en cache.
 - Le jeu de résultats mis en cache, lors de l'exécution de l'une des méthodes `executeUpdate()`, est renvoyé lors de l'appel de la méthode `java.sql.Statement.getGeneratedKeys()`.
 
-Devoir compléter les commandes SQL `INSERT` et `REPLACE` afin de pouvoir suivre l'API JDBC 4.1 peut paraître au premier abord incongru. Mais en fait **c'est la solution implémentée dans le pilote [IBM DB2 v11.5] [10]** (ie: il suffixe les commandes SQL `INSERT` avec `SELECT FROM`). Et je pense qu'il en va de même pour tous les pilotes JDBC 4.1 dont la base de données n'est pas écrite en Java.
+Devoir compléter les commandes SQL `INSERT` et `REPLACE` afin de pouvoir suivre l'API JDBC 4.1 peut paraître au premier abord incongru. Mais en fait **c'est la solution implémentée dans le pilote [IBM DB2 v11.5] [10]** (ie: il suffixe les commandes SQL `INSERT` avec `SELECT FROM`). Je pense que la même chose peut être vraie pour tous les pilotes JDBC 4.1 dont la base de données n'est pas écrite en Java et en tout cas ce n'est qu'un détail d'implémentation.
 
 Ces modifications concernent uniquement le fonctionnement interne du pilote et ne sont pas visibles. En revanche, pour les rendre fonctionnels il a fallu modifier certaines méthodes d'accès au driver JDBC SQLite.  
 Vous trouverez la description de cette nouvelle API dans la section suivante.

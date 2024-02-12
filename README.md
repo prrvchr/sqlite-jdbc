@@ -57,7 +57,7 @@ Its operation does not really differ from the original driver and here are the m
 - SQL commands starting with `INSERT` or `REPLACE` will be supplemented with the `RETURNING` clause to which are added the necessary options to obtain the cached result set.
 - The result set cached, when executing one of the `executeUpdate()` methods, is returned when the `java.sql.Statement.getGeneratedKeys()` method is called.
 
-Having to complete the `INSERT` and `REPLACE` SQL commands in order to be able to follow the JDBC 4.1 API may seem at first incongruous. But in fact **this is the solution implemented in the [IBM DB2 v11.5][10] driver** (ie: it suffixes SQL commands `INSERT` with `SELECT FROM`). And I think the same is true for all JDBC 4.1 drivers whose database is not written in Java.
+Having to complete the `INSERT` and `REPLACE` SQL commands in order to be able to follow the JDBC 4.1 API may seem at first incongruous. But in fact **this is the solution implemented in the [IBM DB2 v11.5][10] driver** (ie: it suffixes SQL commands `INSERT` with `SELECT FROM`). I think the same may be true for all JDBC 4.1 drivers whose database is not written in Java and in any case this is only an implementation detail.
 
 These modifications only concern the internal functioning of the driver and are not visible. On the other hand, to make them functional it was necessary to modify certain access methods to the JDBC SQLite driver.  
 You will find the description of this new API in the following section.
