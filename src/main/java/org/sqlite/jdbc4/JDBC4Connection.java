@@ -28,10 +28,7 @@ public class JDBC4Connection extends JDBC3Connection {
 
     public PreparedStatement prepareStatement(String sql, int rst, int rsc, int rsh)
             throws SQLException {
-        checkOpen();
-        checkCursor(rst, rsc, rsh);
-
-        return new JDBC4PreparedStatement(this, sql);
+        return prepareStatement(sql, rst, rsc, rsh, "*");
     }
 
     // JDBC 4
@@ -105,4 +102,13 @@ public class JDBC4Connection extends JDBC3Connection {
         // TODO Auto-generated method stub
         return null;
     }
+
+    protected PreparedStatement prepareStatement(String sql, int rst, int rsc, int rsh, String... cols)
+            throws SQLException {
+        checkOpen();
+        checkCursor(rst, rsc, rsh);
+
+        return new JDBC4PreparedStatement(this, sql, cols);
+    }
+
 }

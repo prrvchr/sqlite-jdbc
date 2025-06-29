@@ -27,6 +27,8 @@ package org.sqlite;
 import java.sql.SQLException;
 
 public class SQLiteException extends SQLException {
+    static final long serialVersionUID = -8912980209798631378L;
+
     private SQLiteErrorCode resultCode;
 
     public SQLiteException(String message, SQLiteErrorCode resultCode) {

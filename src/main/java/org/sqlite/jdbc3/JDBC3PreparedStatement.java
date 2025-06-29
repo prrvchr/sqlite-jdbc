@@ -29,7 +29,11 @@ import org.sqlite.core.DB;
 public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
 
     protected JDBC3PreparedStatement(SQLiteConnection conn, String sql) throws SQLException {
-        super(conn, sql);
+        super(conn, sql, new String[0]);
+    }
+
+    protected JDBC3PreparedStatement(SQLiteConnection conn, String sql, String... keys) throws SQLException {
+        super(conn, sql, keys);
     }
 
     /** @see java.sql.PreparedStatement#clearParameters() */
@@ -41,6 +45,10 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
 
     /** @see java.sql.PreparedStatement#execute() */
     public boolean execute() throws SQLException {
+        // We can't generate the keys in the method execute(). We need to clear the GeneratedRs.
+        if (hasReturningClause) {
+            clearGeneratedRs();
+        }
         checkOpen();
         rs.close();
         pointer.safeRunConsume(DB::reset);
@@ -57,7 +65,6 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
                         synchronized (conn) {
                             resultsWaiting =
                                     conn.getDatabase().execute(JDBC3PreparedStatement.this, batch);
-                            updateGeneratedKeys();
                             success = true;
                             updateCount = getDatabase().changes();
                         }
@@ -70,6 +77,10 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
 
     /** @see java.sql.PreparedStatement#executeQuery() */
     public ResultSet executeQuery() throws SQLException {
+        // We can't generate the keys in the method executeQuery(). We need to clear the GeneratedRs.
+        if (hasReturningClause) {
+            clearGeneratedRs();
+        }
         checkOpen();
 
         if (columnCount == 0) {
@@ -107,6 +118,12 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
 
     /** @see java.sql.PreparedStatement#executeLargeUpdate() */
     public long executeLargeUpdate() throws SQLException {
+        if (hasReturningClause) {
+            ResultSet result = executeQuery();
+            updateGeneratedKeys(result);
+            result.close();
+            return 1;
+        }
         checkOpen();
 
         if (columnCount != 0) {
@@ -127,7 +144,6 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
                         long rc =
                                 conn.getDatabase()
                                         .executeUpdate(JDBC3PreparedStatement.this, batch);
-                        updateGeneratedKeys();
                         return rc;
                     }
                 });
@@ -312,22 +328,22 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
 
     /** @see java.sql.PreparedStatement#setDouble(int, double) */
     public void setDouble(int pos, double value) throws SQLException {
-        batch(pos, new Double(value));
+        batch(pos, Double.valueOf(value));
     }
 
     /** @see java.sql.PreparedStatement#setFloat(int, float) */
     public void setFloat(int pos, float value) throws SQLException {
-        batch(pos, new Float(value));
+        batch(pos, Float.valueOf(value));
     }
 
     /** @see java.sql.PreparedStatement#setInt(int, int) */
     public void setInt(int pos, int value) throws SQLException {
-        batch(pos, new Integer(value));
+        batch(pos, Integer.valueOf(value));
     }
 
     /** @see java.sql.PreparedStatement#setLong(int, long) */
     public void setLong(int pos, long value) throws SQLException {
-        batch(pos, new Long(value));
+        batch(pos, Long.valueOf(value));
     }
 
     /** @see java.sql.PreparedStatement#setNull(int, int) */
@@ -351,7 +367,7 @@ public abstract class JDBC3PreparedStatement extends CorePreparedStatement {
         } else if (value instanceof Integer) {
             batch(pos, value);
         } else if (value instanceof Short) {
-            batch(pos, new Integer(((Short) value).intValue()));
+            batch(pos, Integer.valueOf((int) value));
         } else if (value instanceof Float) {
             batch(pos, value);
         } else if (value instanceof Double) {

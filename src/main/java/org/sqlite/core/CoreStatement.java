@@ -17,12 +17,13 @@ package org.sqlite.core;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.regex.Pattern;
+
 import org.sqlite.SQLiteConnection;
 import org.sqlite.SQLiteConnectionConfig;
 import org.sqlite.jdbc3.JDBC3Connection;
 import org.sqlite.jdbc4.JDBC4ResultSet;
+import org.sqlite.util.QueryUtils;
+import org.sqlite.util.RowSet;
 
 public abstract class CoreStatement implements Codes {
     public final SQLiteConnection conn;
@@ -35,15 +36,7 @@ public abstract class CoreStatement implements Codes {
     protected Object[] batch = null;
     protected boolean resultsWaiting = false;
 
-    private Statement generatedKeysStat = null;
     private ResultSet generatedKeysRs = null;
-
-    // pattern for matching insert statements of the general format starting with INSERT or REPLACE.
-    // CTEs used prior to the insert or replace keyword are also be permitted.
-    private static final Pattern INSERT_PATTERN =
-            Pattern.compile(
-                    "^\\s*(?:with\\s+.+\\(.+?\\))*\\s*(?:insert|replace)\\s*",
-                    Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
 
     protected CoreStatement(SQLiteConnection c) {
         conn = c;
@@ -162,38 +155,30 @@ public abstract class CoreStatement implements Codes {
         }
     }
 
-    protected void clearGeneratedKeys() throws SQLException {
+    protected void clearGeneratedRs() throws SQLException {
         if (generatedKeysRs != null && !generatedKeysRs.isClosed()) {
             generatedKeysRs.close();
         }
         generatedKeysRs = null;
-        if (generatedKeysStat != null && !generatedKeysStat.isClosed()) {
-            generatedKeysStat.close();
-        }
-        generatedKeysStat = null;
     }
 
     /**
-     * SQLite's last_insert_rowid() function is DB-specific. However, in this implementation we
-     * ensure the Generated Key result set is statement-specific by executing the query immediately
-     * after an insert operation is performed. The caller is simply responsible for calling
-     * updateGeneratedKeys on the statement object right after execute in a synchronized(connection)
-     * block.
+     * This implementation add a SQLite's RETURNING clause to SQL command starting with
+     * INSERT or REPLACE this will allow to retrieve multiple rows ID when inserting multiple rows.
+     *
+     * @see java.sql.Statement#getGeneratedKeys()
      */
-    public void updateGeneratedKeys() throws SQLException {
-        if (conn.getConnectionConfig().isGetGeneratedKeys()) {
-            clearGeneratedKeys();
-            if (sql != null && INSERT_PATTERN.matcher(sql).find()) {
-                generatedKeysStat = conn.createStatement();
-                generatedKeysRs = generatedKeysStat.executeQuery("SELECT last_insert_rowid();");
-            }
+    protected void updateGeneratedKeys(ResultSet result) throws SQLException {
+        System.out.println("CoreStatement.updateGeneratedKeys() 1");
+        clearGeneratedRs();
+        if (QueryUtils.isInsertQuery(sql, "*")) {
+            generatedKeysRs = new RowSet(result);
         }
     }
 
     /**
-     * This implementation uses SQLite's last_insert_rowid function to obtain the row ID. It cannot
-     * provide multiple values when inserting multiple rows. Suggestion is to use a <a
-     * href=https://www.sqlite.org/lang_returning.html>RETURNING</a> clause instead.
+     * This implementation add a SQLite's RETURNING clause to SQL command starting with INSERT or REPLACE.
+     * this will allow to retrieve multiple rows ID when inserting multiple rows.
      *
      * @see java.sql.Statement#getGeneratedKeys()
      */
@@ -202,8 +187,7 @@ public abstract class CoreStatement implements Codes {
         // did not generate any keys. Thus, if the generateKeysResultSet is NULL, spin
         // up a new result set without any contents by issuing a query with a false where condition
         if (generatedKeysRs == null) {
-            generatedKeysStat = conn.createStatement();
-            generatedKeysRs = generatedKeysStat.executeQuery("SELECT 1 WHERE 1 = 2;");
+            generatedKeysRs = conn.createStatement().executeQuery("SELECT 1 WHERE 1 = 2;");
         }
         return generatedKeysRs;
     }

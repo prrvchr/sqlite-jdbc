@@ -53,6 +53,6 @@ public class JDBC4DatabaseMetaData extends JDBC3DatabaseMetaData {
     }
 
     public boolean generatedKeyAlwaysReturned() throws SQLException {
-        throw new SQLFeatureNotSupportedException();
+        return false;
     }
 }

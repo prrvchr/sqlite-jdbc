@@ -25,23 +25,31 @@ import org.sqlite.SQLiteConnectionConfig;
 import org.sqlite.date.FastDateFormat;
 import org.sqlite.jdbc3.JDBC3Connection;
 import org.sqlite.jdbc4.JDBC4Statement;
+import org.sqlite.util.QueryUtils;
 
 public abstract class CorePreparedStatement extends JDBC4Statement {
     protected int columnCount;
     protected int paramCount;
     protected int batchQueryCount;
+    protected boolean hasReturningClause;
 
     /**
      * Constructs a prepared statement on a provided connection.
      *
      * @param conn Connection on which to create the prepared statement.
-     * @param sql The SQL script to prepare.
+     * @param query The SQL script to prepare.
+     * @param keys The keys to obtain.
      * @throws SQLException
      */
-    protected CorePreparedStatement(SQLiteConnection conn, String sql) throws SQLException {
+    protected CorePreparedStatement(SQLiteConnection conn, String query, String[] keys) throws SQLException {
         super(conn);
 
-        this.sql = sql;
+        String query2 = new String(query);
+        if (QueryUtils.isInsertQuery(query, keys)) {
+            query2 = QueryUtils.addReturningClause(query, keys);
+        }
+        sql = query2;
+        hasReturningClause = query2.length() != query.length();
         DB db = conn.getDatabase();
         db.prepare(this);
         rs.colsMeta = pointer.safeRun(DB::column_names);
@@ -120,11 +128,11 @@ public abstract class CorePreparedStatement extends JDBC4Statement {
 
             case REAL:
                 // long to Julian date
-                batch(pos, new Double((value / 86400000.0) + 2440587.5));
+                batch(pos, Double.valueOf((value / 86400000.0) + 2440587.5));
                 break;
 
             default: // INTEGER:
-                batch(pos, new Long(value / config.getDateMultiplier()));
+                batch(pos, Long.valueOf(value / config.getDateMultiplier()));
         }
     }
 }

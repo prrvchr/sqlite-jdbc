@@ -22,7 +22,11 @@ public class JDBC4PreparedStatement extends JDBC3PreparedStatement
     }
 
     public JDBC4PreparedStatement(SQLiteConnection conn, String sql) throws SQLException {
-        super(conn, sql);
+        super(conn, sql, new String[0]);
+    }
+
+    public JDBC4PreparedStatement(SQLiteConnection conn, String sql, String... keys) throws SQLException {
+        super(conn, sql, keys);
     }
 
     // JDBC 4

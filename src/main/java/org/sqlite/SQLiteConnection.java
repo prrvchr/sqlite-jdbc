@@ -149,8 +149,8 @@ public abstract class SQLiteConnection implements Connection {
      * supported by the SQLite interface. Supported settings are:
      *
      * <ul>
-     *   <li>type: {@link ResultSet#TYPE_FORWARD_ONLY}
-     *   <li>concurrency: {@link ResultSet#CONCUR_READ_ONLY})
+     *   <li>type: {@link ResultSet#TYPE_FORWARD_ONLY} or {@link ResultSet#TYPE_SCROLL_INSENSITIVE}
+     *   <li>concurrency: {@link ResultSet#CONCUR_READ_ONLY} or {@link ResultSet#CONCUR_UPDATABLE}
      *   <li>holdability: {@link ResultSet#CLOSE_CURSORS_AT_COMMIT}
      * </ul>
      *
@@ -160,10 +160,8 @@ public abstract class SQLiteConnection implements Connection {
      * @throws SQLException
      */
     protected void checkCursor(int rst, int rsc, int rsh) throws SQLException {
-        if (rst != ResultSet.TYPE_FORWARD_ONLY)
-            throw new SQLException("SQLite only supports TYPE_FORWARD_ONLY cursors");
-        if (rsc != ResultSet.CONCUR_READ_ONLY)
-            throw new SQLException("SQLite only supports CONCUR_READ_ONLY cursors");
+        if (rsc != ResultSet.CONCUR_READ_ONLY && rsc != ResultSet.CONCUR_UPDATABLE)
+            throw new SQLException("SQLite only supports CONCUR_READ_ONLY or CONCUR_UPDATABLE cursors");
         if (rsh != ResultSet.CLOSE_CURSORS_AT_COMMIT)
             throw new SQLException("SQLite only supports closing cursors at commit");
     }
