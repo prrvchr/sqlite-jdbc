@@ -27,7 +27,7 @@
 
 **Ce [document][3] en français.**
 
-# version [3.45.1.6-SNAPSHOT][4]
+# version [3.50.2.1-SNAPSHOT][4]
 
 ## Introduction:
 
@@ -104,10 +104,26 @@ Download the jar archive and do what you like.
 
 - ![SQLite-JDBC logo][11] jar file **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][12]** [![Version][13]][12]
 
+___
+
+## Historical:
+
+### What has been done for version 3.50.2.1:
+
+- The implementation of the `java.sql.Statement.getGeneratedKeys()` method now uses a `javax.sql.rowset.CachedRowSet` object to return a ResultSet. This eliminates the need to keep the ResultSet open.
+- The dependency on SFL4J has been removed and replaced with the `java.lang.System.Logger` facade.
+- The archive is now compiled with Java 11 and as a module.
+
+### What remains to be done for version 3.50.2.1:
+
+- Getting to compile by passing the tests...
+
+- Anything welcome...
+
 [1]: <https://prrvchr.github.io/SQLiteOOo/img/sqlite.svg#collapse>
 [2]: <https://prrvchr.github.io/sqlite-jdbc/>
 [3]: <https://prrvchr.github.io/sqlite-jdbc/README_fr>
-[4]: <https://github.com/prrvchr/sqlite-jdbc/releases>
+[4]: <https://prrvchr.github.io/sqlite-jdbc#what-has-been-done-for-version-35021>
 [5]: <https://prrvchr.github.io/>
 [6]: <https://github.com/xerial/sqlite-jdbc>
 [7]: <https://github.com/xerial/sqlite-jdbc/pull/1067>
@@ -115,5 +131,5 @@ Download the jar archive and do what you like.
 [9]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
 [10]: <https://www.ibm.com/docs/en/db2/11.5?topic=applications-retrieving-auto-generated-keys-insert-statement>
 [11]: <https://prrvchr.github.io/sqlite-jdbc/img/SQLiteJDBC.svg#middle>
-[12]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
-[13]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
+[12]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.50.2.1-SNAPSHOT/sqlite-jdbc-3.50.2.1-SNAPSHOT.jar>
+[13]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.50.2.1-SNAPSHOT#right>

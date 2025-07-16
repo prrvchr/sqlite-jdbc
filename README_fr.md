@@ -27,7 +27,7 @@
 
 **This [document][3] in English.**
 
-# version [3.45.1.6-SNAPSHOT][4]
+# version [3.50.2.1-SNAPSHOT][4]
 
 ## Introduction:
 
@@ -104,10 +104,26 @@ Télécharger l'archive jar et faite en ce qu'il vous plait.
 
 - ![SQLite-JDBC logo][11] Fichier jar **[sqlite-jdbc-3.45.1.6-SNAPSHOT.jar][12]** [![Version][13]][12]
 
+___
+
+## Historique:
+
+### Ce qui a été fait pour la version 3.50.2.1:
+
+- L'implémentation de la méthode `java.sql.Statement.getGeneratedKeys()` utilise désormais un objet `javax.sql.rowset.CachedRowSet` pour renvoyer un ResultSet. Cela permet de ne plus garder ouvert ce ResultSet.
+- La dépendance à SFL4J a été supprimée et remplacée par la façade `java.lang.System.Logger`.
+- L'archive est désormais compilée avec Java 11 et en tant que module.
+
+### Que reste-t-il à faire pour la version 3.50.2.1:
+
+- Arriver à compiler en passant les tests...
+
+- Tout ce qui est bienvenu...
+
 [1]: <https://prrvchr.github.io/SQLiteOOo/img/sqlite.svg#collapse>
 [2]: <https://prrvchr.github.io/sqlite-jdbc/>
 [3]: <https://prrvchr.github.io/sqlite-jdbc/>
-[4]: <https://github.com/prrvchr/sqlite-jdbc/releases>
+[4]: <https://prrvchr.github.io/sqlite-jdbc/README_fr#ce-qui-a-%C3%A9t%C3%A9-fait-pour-la-version-35021>
 [5]: <https://prrvchr.github.io/README_fr>
 [6]: <https://github.com/xerial/sqlite-jdbc>
 [7]: <https://github.com/xerial/sqlite-jdbc/pull/1067>
@@ -115,5 +131,5 @@ Télécharger l'archive jar et faite en ce qu'il vous plait.
 [9]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
 [10]: <https://www.ibm.com/docs/en/db2/11.5?topic=applications-retrieving-auto-generated-keys-insert-statement>
 [11]: <https://prrvchr.github.io/sqlite-jdbc/img/SQLiteJDBC.svg#middle>
-[12]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.45.1.6-SNAPSHOT/sqlite-jdbc-3.45.1.6-SNAPSHOT.jar>
-[13]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.45.1.6-SNAPSHOT#right>
+[12]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.50.2.1-SNAPSHOT/sqlite-jdbc-3.50.2.1-SNAPSHOT.jar>
+[13]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.50.2.1-SNAPSHOT#right>
