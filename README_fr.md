@@ -47,6 +47,20 @@ Car c'est ensemble que nous pouvons rendre le Logiciel Libre plus intelligent.
 
 ___
 
+## Prérequis:
+
+L'archive SQLite-JDBC nécessite Java 11 ou supérieur pour fonctionner.
+
+___
+
+## Installation:
+
+Télécharger l'archive jar et faite en ce qu'il vous plait.
+
+- ![SQLite-JDBC logo][10] Fichier jar **[sqlite-jdbc-3.50.2.1-SNAPSHOT.jar][11]** [![Version][12]][11]
+
+___
+
 ## Comment ça marche:
 
 Son fonctionnement ne diffère pas vraiment du pilote d'origine et voici les modifications qui ont été nécessaires :
@@ -57,7 +71,7 @@ Son fonctionnement ne diffère pas vraiment du pilote d'origine et voici les mod
 - Les commandes SQL commençant par `INSERT` ou `REPLACE` seront complétées par la clause `RETURNING` à laquelle sont ajoutées les options nécessaires pour obtenir le jeu de résultats mis en cache.
 - Le jeu de résultats mis en cache, lors de l'exécution de l'une des méthodes `executeUpdate()`, est renvoyé lors de l'appel de la méthode `java.sql.Statement.getGeneratedKeys()`.
 
-Devoir compléter les commandes SQL `INSERT` et `REPLACE` afin de pouvoir suivre l'API JDBC 4.1 peut paraître au premier abord incongru. Mais en fait **c'est la solution implémentée dans le pilote [IBM DB2 v11.5] [10]** (ie: il suffixe les commandes SQL `INSERT` avec `SELECT FROM`). Je pense que la même chose peut être vraie pour tous les pilotes JDBC 4.1 dont la base de données n'est pas écrite en Java et en tout cas ce n'est qu'un détail d'implémentation.
+Devoir compléter les commandes SQL `INSERT` et `REPLACE` afin de pouvoir suivre l'API JDBC 4.1 peut paraître au premier abord incongru. Mais en fait **c'est la solution implémentée dans le pilote [IBM DB2 v11.5] [13]** (ie: il suffixe les commandes SQL `INSERT` avec `SELECT FROM`). Je pense que la même chose peut être vraie pour tous les pilotes JDBC 4.1 dont la base de données n'est pas écrite en Java et en tout cas ce n'est qu'un détail d'implémentation.
 
 Ces modifications concernent uniquement le fonctionnement interne du pilote et ne sont pas visibles. En revanche, pour les rendre fonctionnels il a fallu modifier certaines méthodes d'accès au driver JDBC SQLite.  
 Vous trouverez la description de cette nouvelle API dans la section suivante.
@@ -98,14 +112,6 @@ Ce nouveau pilote va vous apporter de nombreux avantages:
 
 ___
 
-## Installation:
-
-Télécharger l'archive jar et faite en ce qu'il vous plait.
-
-- ![SQLite-JDBC logo][11] Fichier jar **[sqlite-jdbc-3.50.2.1-SNAPSHOT.jar][12]** [![Version][13]][12]
-
-___
-
 ## Historique:
 
 ### Ce qui a été fait pour la version 3.50.2.1:
@@ -129,7 +135,7 @@ ___
 [7]: <https://github.com/xerial/sqlite-jdbc/pull/1067>
 [8]: <https://github.com/prrvchr/sqlite-jdbc/>
 [9]: <https://github.com/prrvchr/sqlite-jdbc/issues/new>
-[10]: <https://www.ibm.com/docs/en/db2/11.5?topic=applications-retrieving-auto-generated-keys-insert-statement>
-[11]: <https://prrvchr.github.io/sqlite-jdbc/img/SQLiteJDBC.svg#middle>
-[12]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.50.2.1-SNAPSHOT/sqlite-jdbc-3.50.2.1-SNAPSHOT.jar>
-[13]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.50.2.1-SNAPSHOT#right>
+[10]: <https://prrvchr.github.io/sqlite-jdbc/img/SQLiteJDBC.svg#middle>
+[11]: <https://github.com/prrvchr/sqlite-jdbc/releases/download/3.50.2.1-SNAPSHOT/sqlite-jdbc-3.50.2.1-SNAPSHOT.jar>
+[12]: <https://img.shields.io/github/downloads/prrvchr/sqlite-jdbc/latest/total?label=v3.50.2.1-SNAPSHOT#right>
+[13]: <https://www.ibm.com/docs/en/db2/11.5?topic=applications-retrieving-auto-generated-keys-insert-statement>
